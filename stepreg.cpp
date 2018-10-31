@@ -115,7 +115,7 @@ void forward_omp_impl(int mtc, double sle, double maxrsq, const std::vector<doub
     for (size_t step = 0; step < m; ++step) {
         pval.assign(m, 1);
 
-        #pragma omp parallel for schedule(static)
+        #pragma omp parallel for
         for (size_t j = 0; j < m; ++j) {
             if ( ignore[j] )
                 continue;
