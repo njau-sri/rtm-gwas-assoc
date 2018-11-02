@@ -13,6 +13,6 @@ elif [ $1 == "win32" ]; then
 
 elif [ $1 == "win64" ]; then
 
-    x86_64-w64-mingw32-g++ *.cpp -o $1/rtm-gwas-assoc.exe -s -O2 -std=c++11 -static -llopenblas -lgfortran -lquadmath
+    x86_64-w64-mingw32-g++ *.cpp -o $1/rtm-gwas-assoc.exe -s -O2 -std=c++11 -static -lopenblas -lgfortran -lquadmath
 
 fi
