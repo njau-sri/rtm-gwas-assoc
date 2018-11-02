@@ -621,7 +621,7 @@ int fit_multi_locus_model(size_t t, const std::vector<size_t> &loc,
 
 int rtm_gwas_assoc(int argc, char *argv[])
 {
-    std::cerr << "RTM-GWAS 1.5 ASSOC (Built on " __DATE__ " " __TIME__ ")\n";
+    std::cerr << "RTM-GWAS v1.5 ASSOC (Built on " __DATE__ " " __TIME__ ")\n";
 
     CmdLine cmd;
 
