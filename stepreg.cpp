@@ -4,6 +4,7 @@
 #include "statsutil.h"
 
 
+using std::ptrdiff_t;
 using std::size_t;
 
 
@@ -115,8 +116,12 @@ void forward_omp_impl(int mtc, double sle, double maxrsq, const std::vector<doub
     for (size_t step = 0; step < m; ++step) {
         pval.assign(m, 1);
 
+        // in earlier OpenMP specifications (<3.0), unsigned integer is not allowed in loop construct
+        auto m2 = static_cast<ptrdiff_t>(m);
+
         #pragma omp parallel for
-        for (size_t j = 0; j < m; ++j) {
+        for (ptrdiff_t j2 = 0; j2 < m2; ++j2) {
+            auto j = static_cast<size_t>(j2);
             if ( ignore[j] )
                 continue;
 
