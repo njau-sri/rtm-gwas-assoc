@@ -1,6 +1,6 @@
 rmdir /s /q Release
 
-set REDIST=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Redist\MSVC\14.15.26706
+set REDIST=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Redist\MSVC\14.16.27012
 
 set VCOMPDLL=%REDIST%\x86\Microsoft.VC141.OPENMP\vcomp140.dll
 
