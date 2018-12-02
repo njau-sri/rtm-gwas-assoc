@@ -2,11 +2,11 @@
 
 LIB=/usr/local/lib
 
-LIBGFORTRAN=${LIB}/libgfortran.a
-LIBQUADMATH=${LIB}/libquadmath.a
-LIBGCC=${LIB}/gcc/x86_64-apple-darwin17.5.0/8.1.0/libgcc.a
+LIBGFORTRAN=$LIB/libgfortran.a
+LIBQUADMATH=$LIB/libquadmath.a
+LIBGCC=$LIB/gcc/x86_64-apple-darwin17.5.0/8.1.0/libgcc.a
 
 rm -rf macos
 mkdir macos
 
-g++ *.cpp -o macos/rtm-gwas-assoc -O2 -std=c++11 -lopenblas ${LIBGFORTRAN} ${LIBQUADMATH} ${LIBGCC}
+g++ *.cpp -o macos/rtm-gwas-assoc -O2 -std=c++11 -lopenblas $LIBGFORTRAN $LIBQUADMATH $LIBGCC
