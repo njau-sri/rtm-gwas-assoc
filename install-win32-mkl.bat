@@ -1,3 +1,6 @@
+
+rem set RTM_GWAS_VERSION=2019.0.dev
+
 rmdir /s /q Release
 
 set REDIST=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Redist\MSVC\14.16.27012

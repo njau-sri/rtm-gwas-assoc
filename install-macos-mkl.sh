@@ -9,5 +9,7 @@ LIBMKL3=$MKLROOT/lib/libmkl_core.a
 rm -rf macos
 mkdir macos
 
-g++ *.cpp -o macos/rtm-gwas-assoc -O2 -std=c++11 \
-    $LIBMKL1 $LIBMKL2 $LIBMKL3 -lpthread -lm -ldl
+TARGET=macos/rtm-gwas-assoc
+
+g++ *.cpp -o $TARGET -O2 -std=c++11 $LIBMKL1 $LIBMKL2 $LIBMKL3 -lpthread -lm -ldl \
+    -DRTM_GWAS_VERSION=$RTM_GWAS_VERSION

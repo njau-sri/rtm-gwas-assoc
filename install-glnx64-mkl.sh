@@ -9,6 +9,8 @@ LIBMKL3=$MKLROOT/lib/intel64/libmkl_core.a
 rm -rf glnx64
 mkdir glnx64
 
-g++ *.cpp -o glnx64/rtm-gwas-assoc -s -O2 -std=c++11 -static -fopenmp \
+TARGET=glnx64/rtm-gwas-assoc
+
+g++ *.cpp -o $TARGET -s -O2 -std=c++11 -static -fopenmp \
     -Wl,--start-group $LIBMKL1 $LIBMKL2 $LIBMKL3 -Wl,--end-group \
-    -lpthread -lm -ldl
+    -lpthread -lm -ldl -DRTM_GWAS_VERSION=$RTM_GWAS_VERSION
