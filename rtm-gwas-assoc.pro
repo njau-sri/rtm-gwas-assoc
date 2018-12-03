@@ -30,4 +30,5 @@ HEADERS += \
     statsutil.h \
     stepreg.h \
     util.h \
-    vcf.h
+    vcf.h \
+    version.h
