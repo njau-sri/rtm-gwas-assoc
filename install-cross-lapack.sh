@@ -5,6 +5,10 @@ mkdir $1
 
 TARGET=$1/rtm-gwas-assoc
 
+if [ -z "$RTM_GWAS_VERSION" ]; then
+    RTM_GWAS_VERSION=unknown
+fi
+
 if [ $1 == "glnx64" ]; then
 
     g++ *.cpp -o $TARGET -s -O2 -std=c++11 -static -llapack -lblas -lgfortran -lquadmath -fopenmp \

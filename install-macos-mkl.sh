@@ -11,5 +11,9 @@ mkdir macos
 
 TARGET=macos/rtm-gwas-assoc
 
+if [ -z "$RTM_GWAS_VERSION" ]; then
+    RTM_GWAS_VERSION=unknown
+fi
+
 g++ *.cpp -o $TARGET -O2 -std=c++11 $LIBMKL1 $LIBMKL2 $LIBMKL3 -lpthread -lm -ldl \
     -DRTM_GWAS_VERSION=$RTM_GWAS_VERSION

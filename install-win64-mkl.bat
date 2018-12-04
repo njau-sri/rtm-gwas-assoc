@@ -1,5 +1,7 @@
 
-rem set RTM_GWAS_VERSION=2019.0.dev
+if not defined RTM_GWAS_VERSION (
+    set RTM_GWAS_VERSION=unknown
+)
 
 rmdir /s /q x64
 
