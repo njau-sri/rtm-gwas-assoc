@@ -13,6 +13,11 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary
 
 MSBuild.exe /p:Configuration=Release /p:Platform=Win32
 
+if errorlevel 1 (
+    pause
+    exit /b 1
+)
+
 cd Release
 mkdir rtm-gwas-assoc-win32
 copy rtm-gwas-assoc.exe rtm-gwas-assoc-win32\
