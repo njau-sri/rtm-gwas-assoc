@@ -31,8 +31,8 @@ public:
         std::vector<double> p;
         std::vector<double> error;
         std::vector<double> total;
+        std::string to_string() const;
     };
-
 
     // Parameter Estimates
     //
@@ -43,6 +43,7 @@ public:
     {
         std::vector<std::string> par;
         std::vector<double> est;
+        std::string to_string() const;
     };
 
 

@@ -1,4 +1,6 @@
 #include <limits>
+#include <sstream>
+#include <algorithm>
 #include <functional>
 #include "anova.h"
 #include "statsutil.h"
@@ -6,6 +8,26 @@
 
 
 using std::size_t;
+
+
+namespace {
+
+
+template<typename T1, typename T2>
+std::vector<T1> subset(const std::vector<T1> &vec, const std::vector<T2> &idx)
+{
+    std::vector<T1> out;
+
+    out.reserve(idx.size());
+
+    for (auto i : idx)
+        out.push_back(vec[i]);
+
+    return out;
+}
+
+
+} // namespace
 
 
 void ANOVA::add_reg(const std::string &name, const std::vector<double> &x)
@@ -29,7 +51,7 @@ void ANOVA::add_main(const std::string &name, const std::vector<std::string> &a)
     auto tm = std::make_shared<Term>();
     tm->name = name;
     for (auto &e : gn)
-        tm->par.push_back(name + "\t" + e);
+        tm->par.push_back(name + " " + e);
     tm->contr.emplace_back(gn.size(), 1.0);
     tm->dat.swap(x);
     tms_.push_back(tm);
@@ -60,7 +82,7 @@ void ANOVA::add_crossed(const std::string &name, const std::vector<std::string> 
     // A1*B1 A1*B2 A1*B3, A2*B1 A2*B2 A2*B3
     for (size_t i = 0; i < na; ++i) {
         for (size_t j = 0; j < nb; ++j) {
-            tm->par.push_back(name + "\t" + gna[i] + "*" + gnb[j]);
+            tm->par.push_back(name + " " + gna[i] + "*" + gnb[j]);
             auto v = xb[j];
             std::transform(v.begin(), v.end(), xa[i].begin(), v.begin(), std::multiplies<double>());
             tm->dat.push_back(v);
@@ -110,7 +132,7 @@ void ANOVA::add_nested(const std::string &name, const std::vector<std::string> &
     // A1(B1) A2(B1) A3(B1), A1(B2) A2(B2) A3(B2)
     for (size_t i = 0; i < nb; ++i) {
         for (size_t j = 0; j < na; ++j) {
-            tm->par.push_back(name + "\t" + gna[j] + "(" + gnb[i] + ")");
+            tm->par.push_back(name + " " + gna[j] + "(" + gnb[i] + ")");
             auto v = xa[j];
             std::transform(v.begin(), v.end(), xb[i].begin(), v.begin(), std::multiplies<double>());
             tm->dat.push_back(v);
@@ -120,6 +142,23 @@ void ANOVA::add_nested(const std::string &name, const std::vector<std::string> &
         std::fill_n(&v[i*na], na, 1.0);
         tm->contr.push_back(v);
     }
+
+    auto m = tm->dat.size();
+    std::vector<size_t> idx;
+
+    for (size_t i = 0; i < m; ++i) {
+        for (auto e : tm->dat[i]) {
+            if (static_cast<int>(e) != 0) {
+                idx.push_back(i);
+                break;
+            }
+        }
+    }
+
+    subset(tm->par,idx).swap(tm->par);
+    subset(tm->dat,idx).swap(tm->dat);
+    for (auto &v : tm->contr)
+        subset(v,idx).swap(v);
 
     tms_.push_back(tm);
 }
@@ -307,4 +346,38 @@ ANOVA::Solution ANOVA::solution(const std::vector<double> &y) const
     sol.est.swap(b);
 
     return sol;
+}
+
+std::string ANOVA::Table::to_string() const
+{
+    std::ostringstream oss;
+    oss << "Source\tDF\tSS\tMS\tF\tp\n";
+
+    auto n = src.size();
+    for (size_t i = 0; i < n; ++i)
+        oss << src[i] << "\t" << df[i] << "\t" << ss[i] << "\t" << ms[i] << "\t" << f[i] << "\t" << p[i] << "\n";
+
+    oss << "Error";
+    for (auto &e : error)
+        oss << "\t" << e;
+    oss << "\n";
+
+    oss << "Total";
+    for (auto &e : total)
+        oss << "\t" << e;
+    oss << "\n";
+
+    return oss.str();
+}
+
+std::string ANOVA::Solution::to_string() const
+{
+    std::ostringstream oss;
+    oss << "Parameter\tEstimate\n";
+
+    auto n = par.size();
+    for (size_t i = 0; i < n; ++i)
+        oss << par[i] << "\t" << est[i] << "\n";
+
+    return oss.str();
 }
