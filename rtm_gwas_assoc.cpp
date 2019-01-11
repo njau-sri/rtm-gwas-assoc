@@ -1,6 +1,5 @@
 #include <cmath>
 #include <fstream>
-#include <sstream>
 #include <iostream>
 #include <functional>
 #include "version.h"
@@ -596,29 +595,9 @@ int fit_multi_locus_model(size_t t, const std::vector<size_t> &loc,
             e = std::numeric_limits<double>::min();
     }
 
-    std::ostringstream oss1;
-    oss1 << "Parameter\tEstimate\n";
-    for (size_t m = sol.par.size(), i = 0; i < m; ++i)
-        oss1 << sol.par[i] << "\t" << sol.est[i] << "\n";
-    est = oss1.str();
-
-    std::ostringstream oss2;
-    oss2 << "Source\tDF\tSS\tMS\tF\tp\n";
-    for (size_t m = at1.src.size(), i = 0; i < m; ++i)
-        oss2 << at1.src[i] << "\t" << at1.df[i] << "\t" << at1.ss[i] << "\t"
-        << at1.ms[i] << "\t" << at1.f[i] << "\t" << at1.p[i] << "\n";
-    oss2 << "Error\t" << at1.error[0] << "\t" << at1.error[1] << "\t" << at1.error[2] << "\n";
-    oss2 << "Total\t" << at1.total[0] << "\t" << at1.total[1] << "\n";
-    aov1 = oss2.str();
-
-    std::ostringstream oss3;
-    oss3 << "Source\tDF\tSS\tMS\tF\tp\n";
-    for (size_t m = at3.src.size(), i = 0; i < m; ++i)
-        oss3 << at3.src[i] << "\t" << at3.df[i] << "\t" << at3.ss[i] << "\t"
-        << at3.ms[i] << "\t" << at3.f[i] << "\t" << at3.p[i] << "\n";
-    oss3 << "Error\t" << at3.error[0] << "\t" << at3.error[1] << "\t" << at3.error[2] << "\n";
-    oss3 << "Total\t" << at3.total[0] << "\t" << at3.total[1] << "\n";
-    aov3 = oss3.str();
+    est = sol.to_string();
+    aov1 = at1.to_string();
+    aov3 = at3.to_string();
 
     return 0;
 }
