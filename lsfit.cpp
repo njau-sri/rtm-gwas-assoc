@@ -8,14 +8,20 @@
 using std::size_t;
 
 
+namespace {
+
+static const double RCOND_DGELSY_LSFIT = 1e-8;
+
+static const double TOL_DGEQP3_LSFITC = 1e-8;
+
+} // namespace
+
+
 int lsfit(const std::vector<double> &y, const std::vector<double> &x, std::vector<double> &b, double &dfe, double &sse)
 {
-    int info = 0;
-
     auto n = y.size();
     auto q = x.size() / n;
     auto ldy = std::max(n, q);
-    auto rank = std::min(n, q);
 
     b.clear();
     dfe = sse = 0.0;
@@ -24,38 +30,16 @@ int lsfit(const std::vector<double> &y, const std::vector<double> &x, std::vecto
     std::vector<double> cy(ldy, 0.0);
     std::copy(y.begin(), y.end(), cy.begin());
 
-    bool singular = true;
+    bint irank = 0;
+    std::vector<bint> jpvt(q, 0);
+    double rcond = RCOND_DGELSY_LSFIT;
 
-    if (n >= q) {
-        singular = false;
+    int info = C_dgelsy(n, q, 1, cx.data(), n, cy.data(), ldy, jpvt.data(), rcond, &irank);
 
-        info = C_dgels('N', n, q, 1, cx.data(), n, cy.data(), ldy);
+    if (info != 0)
+        return 1;
 
-        if (info == 0) {
-            for (size_t i = 0; i < q; ++i) {
-                if (std::fabs(cx[i*n+i]) < 1e-8) {
-                    singular = true;
-                    break;
-                }
-            }
-        }
-        else
-            singular = true;
-    }
-
-    if (singular) {
-        cx = x;
-        cy.assign(ldy, 0.0);
-        std::copy(y.begin(), y.end(), cy.begin());
-
-        bint lrank = 0;
-        std::vector<bint> jpvt(q, 0);
-        double rcond = 1e-8;
-
-        info = C_dgelsy(n, q, 1, cx.data(), n, cy.data(), ldy, jpvt.data(), rcond, &lrank);
-
-        rank = static_cast<size_t>(lrank);
-    }
+    auto rank = static_cast<size_t>(irank);
 
     b = cy;
     b.resize(q);
@@ -87,7 +71,7 @@ int lsfitc(const std::vector<double> &y, const std::vector<double> &x, std::vect
 
     size_t k = 0;
     for (size_t i = 0; i < m; ++i) {
-        if (std::fabs(z[i*q+i]) > 1e-8)
+        if (std::fabs(z[i*q+i]) > TOL_DGEQP3_LSFITC)
             ++k;
     }
 
