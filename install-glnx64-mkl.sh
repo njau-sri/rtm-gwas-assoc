@@ -15,6 +15,6 @@ if [ -z "$RTM_GWAS_VERSION" ]; then
     RTM_GWAS_VERSION=unknown
 fi
 
-g++ *.cpp -o $TARGET -s -O2 -std=c++11 -static -fopenmp \
+g++ src/*.cpp -o $TARGET -s -O2 -std=c++11 -static -fopenmp \
     -Wl,--start-group $LIBMKL1 $LIBMKL2 $LIBMKL3 -Wl,--end-group \
     -lpthread -lm -ldl -DRTM_GWAS_VERSION=$RTM_GWAS_VERSION
