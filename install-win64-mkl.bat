@@ -5,11 +5,11 @@ if not defined RTM_GWAS_VERSION (
 
 rmdir /s /q x64
 
-set REDIST=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Redist\MSVC\14.16.27012
+set REDIST=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Redist\MSVC\14.20.27508
 
 set VCOMPDLL=%REDIST%\x64\Microsoft.VC141.OPENMP\vcomp140.dll
 
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 MSBuild.exe /p:Configuration=Release /p:Platform=x64
 
