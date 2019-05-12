@@ -38,7 +38,7 @@ LDLIBS += -lpthread -lm -ldl
 
 EXE := $(TARGET)
 
-.PHONY: all win32 win64 macos
+.PHONY: all macos
 
 all: $(EXE)
 
