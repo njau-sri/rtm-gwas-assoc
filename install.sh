@@ -21,6 +21,7 @@ elif [[ $1 == "win64" ]]; then
 elif [[ $1 == "macos" ]]; then
 
     export PATH="/usr/local/opt/llvm@7/bin:$PATH"
+
     make macos || exit 1
     cp rtm-gwas-assoc $1/
 
