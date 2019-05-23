@@ -38,7 +38,7 @@ LDLIBS += -lpthread -lm -ldl
 
 EXE := $(TARGET)
 
-.PHONY: all macos
+.PHONY: all macos clean
 
 all: $(EXE)
 

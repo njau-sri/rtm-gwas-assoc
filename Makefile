@@ -36,7 +36,7 @@ LDFLAGS := $(filter-out -s -static,$(LDFLAGS))
 LDLIBS  := -framework Accelerate
 endif
 
-.PHONY: all win32 win64 macos
+.PHONY: all win32 win64 macos clean
 
 all: $(EXE)
 
