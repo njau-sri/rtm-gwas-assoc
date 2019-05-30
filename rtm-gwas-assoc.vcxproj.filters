@@ -18,6 +18,9 @@
     <ClCompile Include="src\anova.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\assoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\cmdline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,9 +34,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pheno.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rtm_gwas_assoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\statsutil.cpp">

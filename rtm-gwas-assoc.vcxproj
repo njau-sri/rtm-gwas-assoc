@@ -153,12 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\anova.cpp" />
+    <ClCompile Include="src\assoc.cpp" />
     <ClCompile Include="src\cmdline.cpp" />
     <ClCompile Include="src\lapack.cpp" />
     <ClCompile Include="src\lsfit.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pheno.cpp" />
-    <ClCompile Include="src\rtm_gwas_assoc.cpp" />
     <ClCompile Include="src\statsutil.cpp" />
     <ClCompile Include="src\stepreg.cpp" />
     <ClCompile Include="src\util.cpp" />
