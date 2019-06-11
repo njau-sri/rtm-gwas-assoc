@@ -614,7 +614,7 @@ int rtm_gwas_assoc(int argc, char *argv[])
     cmd.add("--vcf", "VCF file", "");
     cmd.add("--pheno", "phenotype file", "");
     cmd.add("--covar", "covariate file", "");
-    cmd.add("--out", "output file", "rtm-gwas-assoc.out");
+    cmd.add("--out", "output file", "assoc.out");
     cmd.add("--alpha", "significance level", "0.05");
     cmd.add("--preselect", "pre-selection threshold", "0.05");
     cmd.add("--mtc", "multiple testing correction, BON/FDR/HOLM", "");
