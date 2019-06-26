@@ -27,7 +27,7 @@ struct Parameter
     std::string covar;
     std::string out;
     double rsq = 0.95;
-    double alpha = 0.05;
+    double alpha = 0.01;
     double preselect = 0.05;
     int mtc = 0;
     bool nogxe = false;
@@ -615,7 +615,7 @@ int rtm_gwas_assoc(int argc, char *argv[])
     cmd.add("--pheno", "phenotype file", "");
     cmd.add("--covar", "covariate file", "");
     cmd.add("--out", "output file", "assoc.out");
-    cmd.add("--alpha", "significance level", "0.05");
+    cmd.add("--alpha", "significance level", "0.01");
     cmd.add("--preselect", "pre-selection threshold", "0.05");
     cmd.add("--mtc", "multiple testing correction, BON/FDR/HOLM", "");
     cmd.add("--rsq", "maximum model r-square", "0.95");
